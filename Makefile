@@ -33,6 +33,9 @@ SRCS = $(addprefix $(SRCDIR), \
 	   utils_to_be_deleted.c \
 	   map_validation.c \
 	   map_validation_2.c \
+	   game_init.c \
+	   gaming_movement.c \
+	   gaming_movement_2.c \
 	   main.c)
 LIBFTLIB = ./libft/libft.a
 OBJ = $(SRCS:%.c=%.o)

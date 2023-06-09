@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_exit.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lclerc <lclerc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/06 08:17:26 by lclerc            #+#    #+#             */
+/*   Updated: 2023/06/06 08:17:37 by lclerc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../so_long.h"
 
 void	free_2d_array(t_map *map, int array_to_free)
@@ -24,10 +36,10 @@ void	free_2d_array(t_map *map, int array_to_free)
 	}
 }
 
-static void free_map_as_string(t_map *map)
+static void	free_map_as_string(t_map *map)
 {
 	if (map->map_as_string != NULL)
-		free (map->map_as_string);
+		free(map->map_as_string);
 	map->map_as_string = NULL;
 }
 
@@ -57,6 +69,8 @@ static int	exit_gracefully(int exit_code)
 void	print_error(t_map *map, int exit_code)
 {
 	free_2d_array(map, MAP);
+	if (exit_code >= 2)
+		ft_printf("Error\n");
 	if (exit_code == MALLOC_FAIL)
 	{
 		free_map_as_string(map);
@@ -76,6 +90,5 @@ void	print_error(t_map *map, int exit_code)
 		ft_printf("ILLEGAL_CHARACTER\n");
 	else if (exit_code == FLOOD_FILL_FAILED)
 		ft_printf("FLOOD_FILL_FAILED\n");
-
 	exit_gracefully(exit_code);
 }

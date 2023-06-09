@@ -1,12 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_validation_2.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lclerc <lclerc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/06 08:48:53 by lclerc            #+#    #+#             */
+/*   Updated: 2023/06/06 08:50:51 by lclerc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../so_long.h"
 
-void check_valid_path(size_t y, size_t x, t_map *map)
+void	check_valid_path(size_t y, size_t x, t_map *map)
 {
-	if ((map->flood_exit == FOUND) && (map->flood_collectibles == map->collectibles))
+	if ((map->flood_exit == FOUND)
+		&& (map->flood_collectibles == map->collectibles))
 		map->flood_valid = SUCCESS;
 	if (map->flood_map[y][x] == 'E')
 		map->flood_exit = FOUND;
-	if ((map->flood_map[y][x] == '0') || (map->flood_map[y][x] == 'C') || (map->flood_map[y][x] == 'P'))
+	if ((map->flood_map[y][x] == '0') || (map->flood_map[y][x] == 'C') ||
+		(map->flood_map[y][x] == 'P'))
 	{
 		if (map->flood_map[y][x] == 'C')
 			map->flood_collectibles++;

@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_validation.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lclerc <lclerc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/06 08:51:18 by lclerc            #+#    #+#             */
+/*   Updated: 2023/06/06 08:55:26 by lclerc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../so_long.h"
 #include <stddef.h>
 
-static	void	check_walls(t_map *map)
+static void	check_walls(t_map *map)
 {
 	size_t	i;
 	size_t	j;
@@ -26,7 +38,7 @@ static	void	check_walls(t_map *map)
 	}
 }
 
-static int	count_characters(t_map *map, char c)
+size_t	count_characters(t_map *map, char c)
 {
 	size_t	i;
 	size_t	j;
@@ -51,7 +63,7 @@ static int	count_characters(t_map *map, char c)
 		}
 		i++;
 	}
-	return(count);
+	return (count);
 }
 
 static void	check_rectangularity(t_map *map)
@@ -77,7 +89,6 @@ static void	check_rectangularity(t_map *map)
 
 void	validate_map(t_map *map)
 {
-	
 	check_rectangularity(map);
 	check_walls(map);
 	map->walls = count_characters(map, '1');
@@ -86,12 +97,13 @@ void	validate_map(t_map *map)
 	map->player = count_characters(map, 'P');
 	map->exit = count_characters(map, 'E');
 	if (map->player != 1)
-		print_error(map, ONE_PLAYER_ONLY ); 
+		print_error(map, ONE_PLAYER_ONLY);
 	if (map->exit != 1)
 		print_error(map, ONE_EXIT_ONLY);
 	if (map->collectibles < 1)
 		print_error(map, NEED_COLLECTIBLES);
-	if (map->collectibles + map->exit + map->player + map->walls + map->empty != map->amount_characters)
+	if (map->collectibles + map->exit + map->player + map->walls \
+		+ map->empty != map->amount_characters)
 		print_error(map, ILLEGAL_CHARACTER);
 	check_valid_path(map->player_y, map->player_x, map);
 	if (map->flood_valid == FAILURE)

@@ -6,7 +6,7 @@
 #    By: lclerc <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/26 12:40:47 by lclerc            #+#    #+#              #
-#    Updated: 2023/03/10 16:03:50 by lclerc           ###   ########.fr        #
+#    Updated: 2023/06/06 13:33:02 by lclerc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME= 		libft.a
 CC= 			cc
 FLAGS=		-Wall -Wextra -Werror
 CFILES=		ft_isalpha.c \
+					ft_atol.c \
 					ft_isdigit.c \
 					ft_isalnum.c \
 					ft_isascii.c \

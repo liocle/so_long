@@ -1,9 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_build.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lclerc <lclerc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/06 08:27:12 by lclerc            #+#    #+#             */
+/*   Updated: 2023/06/06 13:39:35 by lclerc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../so_long.h"
-#include <fcntl.h>
-#include <unistd.h>
 
-static void build_map(t_map *map, int flag)
+static void	build_map(t_map *map, int flag)
 {
 	if (flag == KEEP_STRING)
 	{
@@ -11,47 +20,55 @@ static void build_map(t_map *map, int flag)
 		if (!map->map)
 			print_error(map, MALLOC_FAIL);
 	}
-	else 
+	else
 	{
 		map->flood_map = ft_split(map->map_as_string, '\n');
 		if (!map->flood_map)
 			print_error(map, MALLOC_FAIL);
-		//free (map->map_as_string);
 	}
 	if (flag == DELETE_STRING)
-		free (map->map_as_string);
+	{
+		free(map->map_as_string);
+		map->map_as_string = NULL;
+	}
 }
 
-static int	map_as_string(t_map *map, char **argv)
+static void	get_string(t_map *map, char *temp, char *line)
 {
-	int fd;
-	char	*line;
+	temp = ft_strdup(map->map_as_string);
+	free(map->map_as_string);
+	map->map_as_string = ft_strjoin(temp, line);
+	free(temp);
+	if (map->map_as_string == NULL)
+		print_error(map, MALLOC_FAIL);
+}
 
+static void	map_as_string(t_map *map, char **argv)
+{
+	int		fd;
+	char	*line;
+	char	*temp;
+
+	temp = NULL;
 	fd = open(argv[1], O_RDONLY);
 	line = "";
-	while (line) 
+	while (line)
 	{
 		line = get_next_line(fd);
 		if (line == NULL)
-			break;
+			break ;
 		if (map->map_as_string == NULL)
-			map->map_as_string = ft_strdup(line);
-		else
 		{
-			char *temp = ft_strdup(map->map_as_string);
-			free(map->map_as_string);
-			map->map_as_string = ft_strjoin(temp, line);
-			free (temp);
-			if (map->map_as_string == NULL)
+			map->map_as_string = ft_strdup(line);
+			if (!map->map_as_string)
 				print_error(map, MALLOC_FAIL);
 		}
+		else
+			get_string(map, temp, line);
 		free(line);
 	}
 	close(fd);
-	return (SUCCESS);
 }
-
-
 
 int	build_and_validate_map(t_map *map, char **argv)
 {
@@ -59,7 +76,5 @@ int	build_and_validate_map(t_map *map, char **argv)
 	build_map(map, KEEP_STRING);
 	build_map(map, DELETE_STRING);
 	validate_map(map);
-	ft_printf("build and validated\n");
 	return (SUCCESS);
 }
-
