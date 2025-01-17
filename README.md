@@ -48,10 +48,10 @@ Ensure the `mlx` directory contains the extracted files before building the proj
 This project uses MiniLibX for graphics. Depending on your system architecture, follow these steps to extract the appropriate MiniLibX files:
   - **For Linux**:
      ```bash
-     tar --strip-components=1 -xvf minilibx-linux.tgz -C mlx/
+     mkdir -p mlx && tar --strip-components=1 -xvf minilibx-linux.tgz -C mlx/
   - **For macOS**:
      ```bash
-     tar --strip-components=1 -xvf minilibx_mms_20200219_beta.tgz -C mlx/
+     mkdir -p mlx && tar --strip-components=1 -xvf minilibx_mms_20200219_beta.tgz -C mlx/
      
 4. **Build the game**:
    ```bash
