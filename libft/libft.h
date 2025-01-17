@@ -22,6 +22,11 @@
 # define SUCCESS 1
 # define MALLOC_FAIL 2
 
+
+# ifndef OPEN_MAX
+#   define OPEN_MAX 1024 // You can set a value suitable for your needs
+# endif
+
 typedef struct s_list
 {
 	void			*content;

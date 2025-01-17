@@ -15,13 +15,13 @@
 # dependency:
 # - $@ represents the target, the file being built.
 # - $< represents the first dependency, the file required to build the target.
-# 
+#
 #******************************************************************************#
 
 BINARY = so_long
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g
-MLX_LINK =  -L ./mlx/ -lmlx -framework OpenGL -framework AppKit
+MLX_LINK = -L ./mlx/ -lmlx -lX11 -lXext -lm
 MLX = mlx/libmlx.a
 COMPILE = $(CC) $(CFLAGS)
 SRCDIR = ./src/
@@ -45,7 +45,7 @@ OBJ = $(SRCS:%.c=%.o)
 all: $(BINARY)
 
 $(BINARY): $(MLX) $(LIBFTLIB) $(OBJ)
-	$(COMPILE) $(MLX) $(MLX_LINK) $(LIBFTLIB) -o $(BINARY) $(OBJ)
+	$(COMPILE) $(OBJ) $(MLX) $(MLX_LINK) $(LIBFTLIB) -o $(BINARY)
 
 %.o: %.c
 	$(COMPILE) -I libft $< -c -o $@
@@ -70,6 +70,5 @@ fclean: clean
 re: fclean all
 
 #******************************************************************************#
-.PHONY: all clean fclean re 
+.PHONY: all clean fclean re
 #******************************************************************************#
- 

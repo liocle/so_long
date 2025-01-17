@@ -1,0 +1,26 @@
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+*~
+Session.vim
+Sessionx.vim
+.netrwhist
+[._]*.un~
+vim
+
+# VSCode stuff
+.vscode
+*.code-workspace
+
+
+libft.a
+so_long
+*test*
+a.out
+*.o
+*.pdf
+*.bak
+libft.a
+mlx
